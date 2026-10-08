@@ -26,7 +26,7 @@ export async function PATCH(request: Request, { params }: Context) {
     if (body.status === "applied" && current.status !== "applied") changes.applied_at = new Date().toISOString();
     if (body.status === "applied" && current.status === "applied") changes.applied_at = current.applied_at;
     if (body.status === "saved") changes.applied_at = null;
-    if (!Object.keys(changes).length || (changes.title !== undefined && !changes.title) || (changes.url !== undefined && changes.url.length > 2048)) return NextResponse.json({ error: "There are no valid changes to save." }, { status: 400 });
+    if (!Object.keys(changes).length || (changes.title !== undefined && !changes.title) || (typeof changes.url === "string" && changes.url.length > 2048)) return NextResponse.json({ error: "There are no valid changes to save." }, { status: 400 });
     if (typeof changes.canonical_url === "string") {
       const { data: duplicate, error: duplicateError } = await ctx.db.from("job_applications").select("id").eq("user_id", ctx.userId).eq("canonical_url", changes.canonical_url).neq("id", id).maybeSingle();
       if (duplicateError) throw duplicateError;
