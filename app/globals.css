@@ -198,6 +198,237 @@ h2 {
 .text-button:hover {
   text-decoration: underline;
 }
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.daily-tasks-link {
+  color: #52775d;
+  border: 1px solid #dce7cd;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.daily-tasks-link:hover,
+.daily-tasks-link.active {
+  background: #edf3dc;
+}
+.daily-tasks {
+  margin-bottom: 16px;
+}
+.daily-task-progress {
+  color: #65806b;
+  font-size: 13px;
+  font-weight: 700;
+}
+.daily-task-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+.daily-task-list label {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  border-radius: 13px;
+  background: #f3f5e8;
+  color: #385d48;
+  font-weight: 600;
+  cursor: pointer;
+}
+.daily-task-list input {
+  width: 18px;
+  height: 18px;
+  accent-color: #5c9a66;
+}
+.daily-task-list label.complete span {
+  color: #82917f;
+  text-decoration: line-through;
+}
+.daily-task-back {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+.job-applications h2 {
+  margin: 0 0 8px;
+  font-size: 21px;
+}
+.job-goal-panel,
+.job-add-form,
+.job-row {
+  border: 1px solid #e5e9d8;
+  border-radius: 16px;
+  background: #f8f8ed;
+  padding: 16px;
+  margin: 16px 0;
+}
+.job-goal-panel p {
+  margin: 6px 0;
+  color: #65806b;
+  font-size: 13px;
+}
+.job-reward-note {
+  font-weight: 700;
+}
+.job-goal-form,
+.job-add-form {
+  display: grid;
+  gap: 8px;
+}
+.job-goal-form {
+  grid-template-columns: 1fr 90px auto;
+  align-items: center;
+  margin-top: 13px;
+}
+.job-applications input:not([type="checkbox"]) {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #d9e0cd;
+  border-radius: 9px;
+  color: #244839;
+  background: #fffefa;
+}
+.job-add-form label,
+.job-row-fields label,
+.job-goal-form label {
+  color: #55715d;
+  font-size: 13px;
+  font-weight: 700;
+}
+.job-add-form label span {
+  font-weight: 400;
+}
+.job-checking,
+.job-verified,
+.job-claimed {
+  margin: 2px 0 8px;
+  color: #537954;
+  font-size: 13px;
+  font-weight: 700;
+}
+.job-cancelled {
+  margin: 8px 0;
+  color: #9b594d;
+  font-size: 13px;
+  font-weight: 700;
+}
+.job-cancel-goal {
+  margin-top: 11px;
+  padding: 7px 0;
+  border: 0;
+  background: none;
+  color: #9b594d;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.job-list-heading,
+.job-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.job-list-heading span {
+  color: #65806b;
+  font-weight: 700;
+}
+.job-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+.job-row {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.job-row-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px;
+  color: #385d48;
+  cursor: pointer;
+  list-style: none;
+}
+.job-row-summary::-webkit-details-marker {
+  display: none;
+}
+.job-row-summary::after {
+  content: "+";
+  margin-left: auto;
+  color: #65806b;
+  font-size: 20px;
+  font-weight: 700;
+}
+.job-row[open] .job-row-summary::after {
+  content: "−";
+}
+.job-row-title {
+  font-weight: 700;
+}
+.job-row-company {
+  color: #758675;
+  font-size: 13px;
+}
+.job-status {
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: #e8eddb;
+  color: #55715d;
+  font-size: 11px;
+  font-weight: 700;
+}
+.job-status.applied {
+  background: #dcefe0;
+  color: #3d744b;
+}
+.job-row-content {
+  display: grid;
+  gap: 11px;
+  padding: 0 14px 14px;
+}
+.job-row-fields {
+  display: grid;
+  gap: 8px;
+}
+.job-row-fields input {
+  display: block;
+  margin-top: 5px;
+}
+.job-applied-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #55715d;
+  font-size: 13px;
+  font-weight: 700;
+}
+.job-applied-toggle input {
+  width: 17px;
+  height: 17px;
+  accent-color: #5c9a66;
+}
+.job-delete {
+  border: 0;
+  background: none;
+  color: #9b594d;
+  font-size: 13px;
+  font-weight: 700;
+}
+.job-delete:hover {
+  text-decoration: underline;
+}
 .coin {
   display: inline-block;
   flex: none;

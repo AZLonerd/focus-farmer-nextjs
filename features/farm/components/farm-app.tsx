@@ -11,10 +11,14 @@ import { CollectionScreen } from "./collection-screen";
 import { useFarm } from "../use-farm";
 import { asset } from "../constants";
 import { Coin } from "./sprites";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { DailyTasksScreen } from "./daily-tasks-screen";
 
 /** Renders the farm screen selected by the controller and its overlays. */
 export function FarmApp() {
   const farm = useFarm();
+  const pathname = usePathname();
   const {
     screen,
     setScreen,
@@ -29,6 +33,7 @@ export function FarmApp() {
     gachaOpen,
     walkthrough,
     logout,
+    refreshProgress,
   } = farm;
   return (
     <main className={`world ${progress.sessions > 0 ? "flow" : ""}`}>
@@ -84,15 +89,29 @@ export function FarmApp() {
                   {progress.sessions}
                 </span>
               </div>
-              <button className="logout" disabled={busy} onClick={logout}>
-                Logout
-              </button>
+              <div className="topbar-actions">
+                <Link
+                  className={`daily-tasks-link${pathname === "/daily-tasks" ? " active" : ""}`}
+                  href={pathname === "/daily-tasks" ? "/" : "/daily-tasks"}
+                >
+                  {pathname === "/daily-tasks" ? "Farm" : "Daily Tasks"}
+                </Link>
+                <button className="logout" disabled={busy} onClick={logout}>
+                  Logout
+                </button>
+              </div>
             </header>
-            {screen === "setup" && <SetupScreen {...farm} />}
-            {screen === "focus" && focus && <FocusScreen {...farm} />}
-            {screen === "summary" && summary && <SummaryScreen {...farm} />}
-            {screen === "rest" && <RestScreen {...farm} />}
-            {screen === "collection" && <CollectionScreen {...farm} />}
+            {pathname === "/daily-tasks" ? (
+              <DailyTasksScreen onCoinsEarned={refreshProgress} />
+            ) : (
+              <>
+                {screen === "setup" && <SetupScreen {...farm} />}
+                {screen === "focus" && focus && <FocusScreen {...farm} />}
+                {screen === "summary" && summary && <SummaryScreen {...farm} />}
+                {screen === "rest" && <RestScreen {...farm} />}
+                {screen === "collection" && <CollectionScreen {...farm} />}
+              </>
+            )}
             {message && screen !== "setup" && (
               <p className="notice global-notice" role="status">
                 {message}

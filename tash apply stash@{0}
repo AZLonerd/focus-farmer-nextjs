@@ -1,0 +1,15 @@
+ app/api/job-applications/[id]/route.ts                |  55 [32m++++++++++++++++++++[m
+ app/api/job-applications/cancel/route.ts              |  14 [32m+++++[m
+ app/api/job-applications/claim/route.ts               |  14 [32m+++++[m
+ app/api/job-applications/goal/route.ts                |  38 [32m++++++++++++++[m
+ app/api/job-applications/route.ts                     |  44 [32m++++++++++++++++[m
+ app/api/job-applications/verify/route.ts              |  16 [32m++++++[m
+ app/daily-tasks/page.tsx                              |   6 [32m+++[m
+ features/farm/components/daily-tasks-screen.tsx       |  14 [32m+++++[m
+ features/job-applications/job-applications-screen.tsx | 254 [32m++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m
+ features/job-applications/normalize-url.ts            |  19 [32m+++++++[m
+ features/job-applications/server.ts                   |  26 [32m++++++++++[m
+ features/job-applications/types.ts                    |  14 [32m+++++[m
+ features/job-applications/verify-url.ts               | 118 [32m++++++++++++++++++++++++++++++++++++++++++[m
+ supabase/job_applications.sql                         | 197 [32m++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m
+ 14 files changed, 829 insertions(+)

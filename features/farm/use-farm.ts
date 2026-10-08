@@ -270,7 +270,7 @@ export function useFarm() {
     await performAction(async () => {
       setNewPet(null);
       const pet = await runTransaction<Pet>(supabase, "pull_egg");
-      setProgress((p) => ({ ...p, coins: p.coins - 10 }));
+      setProgress((p) => ({ ...p, coins: Math.max(0, p.coins - 10) }));
       setPets((p) => [pet, ...p]);
       setEggStage("wobble");
       // The busy flag is also held by the animation state until the reveal.
@@ -311,6 +311,9 @@ export function useFarm() {
   const elapsed = focus ? now - new Date(focus.started_at).getTime() : 0;
   const complete = !!focus && remaining <= 0;
   const breakActive = breakEndsAt !== null && breakEndsAt > now;
+  const refreshProgress = async () => {
+    if (userId) setProgress(await loadProgress(supabase, userId));
+  };
 
   return {
     screen,
@@ -325,6 +328,7 @@ export function useFarm() {
     setMessage,
     busy: busy || eggStage === "wobble",
     progress,
+    refreshProgress,
     pets,
     focus,
     summary,

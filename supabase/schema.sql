@@ -6,6 +6,17 @@ create table if not exists public.progress (
   created_at timestamptz not null default now()
 );
 
+-- Keep the balance nonnegative even if a future write path is added.
+do $$ begin
+  if not exists (
+    select 1 from pg_constraint
+    where conrelid = 'public.progress'::regclass
+      and conname = 'progress_coins_nonnegative'
+  ) then
+    alter table public.progress add constraint progress_coins_nonnegative check (coins >= 0);
+  end if;
+end $$;
+
 create table if not exists public.focus_sessions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
