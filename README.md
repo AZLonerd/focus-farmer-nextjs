@@ -10,10 +10,13 @@ A Next.js app built from the `with-supabase` starter. Focus sessions earn coins 
 4. In **Authentication → Email Templates → Confirm signup**, use a confirmation link with the token hash callback:
 
    ```html
-   <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email">Confirm your email</a>
+   <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email"
+     >Confirm your email</a
+   >
    ```
 
    Keep email confirmation enabled. The app asks new users to verify their email before logging in.
+
 5. Run `npm install` and `npm run dev`.
 
 The app can show its title screen without Supabase credentials, but authentication and saved progress require steps 1–4. The original art and music are in `assets/`; copies in `public/assets/` are served by Next.js.
@@ -28,4 +31,13 @@ The app can show its title screen without Supabase credentials, but authenticati
 
 ## Checks
 
-`npm run build` and `npm run lint` validate the app. Live auth and database flows require a configured Supabase project.
+Use Node.js 22 or newer; the locked Supabase dependencies require it.
+
+`npm test`, `npm run typecheck`, `npm run lint`, and `npm run build` validate the app. Live auth and database flows require a configured Supabase project.
+
+## Development
+
+The game is organized under `features/farm/`, with separate screen components,
+state orchestration, database access, browser storage, and audio lifecycle hooks.
+See [the architecture guide](docs/architecture.md) for module responsibilities,
+function contracts, persistence rules, and a manual smoke-test workflow.
