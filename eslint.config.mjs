@@ -10,8 +10,13 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  { ignores: [".next/**", "node_modules/**"] },
+  { ignores: [".next/**", ".test-build/**", "node_modules/**"] },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ["features/farm/components/**/*.tsx"],
+    // Pixel art and animated GIFs intentionally retain their native rendering.
+    rules: { "@next/next/no-img-element": "off" },
+  },
 ];
 
 export default eslintConfig;

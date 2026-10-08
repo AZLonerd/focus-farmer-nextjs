@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasEnvVars } from "../utils";
 
+/** Refreshes auth cookies on both request and response before enforcing route access. */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,

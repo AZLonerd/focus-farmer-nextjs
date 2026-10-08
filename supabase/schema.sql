@@ -48,6 +48,7 @@ create policy "Read own focus sessions" on public.focus_sessions for select to a
 drop policy if exists "Read own pets" on public.pets;
 create policy "Read own pets" on public.pets for select to authenticated using (user_id = (select auth.uid()));
 
+-- Initializes the balance row for a new auth user; also safe for existing rows.
 create or replace function public.create_progress_for_user() returns trigger
 language plpgsql security definer set search_path = public as $$
 begin
@@ -61,6 +62,8 @@ create trigger on_auth_user_created_focus_farmer after insert on auth.users
 for each row execute function public.create_progress_for_user();
 insert into public.progress(user_id) select id from auth.users on conflict do nothing;
 
+-- Starts a focus session or returns the existing open session. Duration is in
+-- minutes with one decimal place; display mode affects presentation only.
 create or replace function public.start_focus(p_minutes numeric, p_mode text, p_display_mode text, p_outfit text)
 returns public.focus_sessions language plpgsql security definer set search_path = public as $$
 declare v_user uuid := auth.uid(); v_session public.focus_sessions;
@@ -82,6 +85,8 @@ begin
 end;
 $$;
 
+-- Claims an owned session exactly once. Early claims earn zero; completed claims
+-- update the session, balance, and lifetime completed count in one transaction.
 create or replace function public.reap_focus(p_session_id uuid)
 returns public.focus_sessions language plpgsql security definer set search_path = public as $$
 declare v_user uuid := auth.uid(); v_session public.focus_sessions; v_base integer; v_hard integer; v_lucky integer;
@@ -110,6 +115,8 @@ begin
 end;
 $$;
 
+-- Atomically spends ten coins and inserts one hatch. Duplicate pets are allowed.
+-- Rarity odds: common 50%, rare 30%, epic 15%, legendary 5%.
 create or replace function public.pull_egg()
 returns public.pets language plpgsql security definer set search_path = public as $$
 declare v_user uuid := auth.uid(); v_roll double precision; v_pet public.pets; v_name text; v_rarity text; v_asset text;
